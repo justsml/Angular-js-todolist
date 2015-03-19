@@ -22,7 +22,7 @@ App.controller("ScoreCtrl", ['$scope', 'localStorageService', function ($scope, 
 					]
 				}
 			];
-		}else{
+		} else {
 			$scope.model = localStorageService.get("scoreList");
 		}
 		$scope.currentShow = 0;
@@ -37,12 +37,7 @@ App.controller("ScoreCtrl", ['$scope', 'localStorageService', function ($scope, 
 
 	$scope.deleteScore = function _deleteScore(index) {
 		$scope.model[$scope.currentShow].list.splice(index, 1);
-	};
-
-	$scope.scoreSortable = {
-		containment: "parent",//Dont let the user drag outside the parent
-		cursor: "move",//Change the cursor icon on drag
-		tolerance: "pointer"//Read http://api.jqueryui.com/sortable/#option-tolerance
+		$scope.updateSummary();
 	};
 
 	$scope.changeScore = function _changeScore(i) {
