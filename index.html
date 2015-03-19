@@ -1,142 +1,137 @@
 <!doctype html>
-<html lang="en" ng-app="todo">
+<html lang="en" ng-app="score">
 <head>
 	<!--
-	** Todo-Sortable-List Example App
+	** Updated By Dan Levy
+	* Student Ranking Simple Example
+	** 
+	** ORIGINAL FORK:
+	** Score-Sortable-List Example App
 	** Licensed under the Apache License v2.0
 	** http://www.apache.org/licenses/LICENSE-2.0
 	** Built by Jay Kanakiya ( @techiejayk )
 	-->
-	<title>Angular js Sortable Todo-List</title>
+	<title>Angular.JS -- Student Ranking -- Simple Example</title>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Angular js Todo-Sortable-List Example"/>
-	<meta name="author" content="Jay Kanakiya">
 
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/jquery-ui.min.css">
+	<!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/sandstone.bootstrap.min.css">
 
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js'></script>
 	<script src="js/libs/jquery.min.js"></script>
-	<script src="js/libs/jquery-ui.min.js"></script>
 	<script src="js/libs/bootstrap.min.js"></script>
 	<script src="js/libs/angular.min.js"></script>
 	<script src="js/libs/angular-local-storage.min.js"></script>
-	<script src="js/libs/sortable.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/directives/angular.editInPlace.js"></script>
 	<script src="js/directives/angular.ngEnter.js"></script>
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
 </head>
-<body ng-controller="TodoCtrl" ng-init="init()">
-	<!-- The Common Navigation Navbar-->
+<body ng-controller="ScoreCtrl" ng-init="init()">
+	<!-- 
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Angular-js TodoList</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a  target="_blank" title="Angular js Tutorial" href="http://blog.jaykanakiya.com/angular-js-todo-list-sortable/">Go back to Tutorial</a></li>
-            <li><a href="http://blog.jaykanakiya.com/contact/" title="Contact Jay Kanakiya">Contact Me</a></li>
-            <li><a href="https://github.com/kanakiyajay/Angular-js-todolist/" title="Github angular js">Github Link</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Links <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a title="jQuery plugins" href="http://jquer.in/" target="_blank">A jQuery plugin a Day</a></li>
-                <li class="active"><a title="Tutorial" href="https://github.com/kanakiyajay/Angular-js-todolist/" target="_blank">Angular-js TodoList</a></li>
-                <li><a title="Twitter" href="https://twitter.com/techiejayk" target="_blank">@techiejayk</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-            		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Share <b class="caret"></b></a>
-            		<ul class="dropdown-menu">
-            		<li><a href="https://twitter.com/intent/tweet?url=http://jaykanakiya.com/demos/angular-js-todolist/&text=Massive Angular-js-Todo-List-Tutorial&via=techiejayk">Twitter</a></li>
-            		<li><a href="https://facebook.com/sharer.php?u=http://jaykanakiya.com/demos/angular-js-todolist/">Facebook</a></li>
-           		<li><a href="https://plus.google.com/share?url=http://jaykanakiya.com/demos/angular-js-todolist/">Google+</a></li>
-            		</ul>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Classroom Score Tracker</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="http://www.danlevy.net/" title="Contact Me">Contact Me</a></li>
+						<li><a href="https://github.com/justsml/" title="Github angular js">Github Link</a></li>
+					</ul>
+				</div>< ! - - .nav-collapse - - >
+			</div>
+		</div>
+		-->
 
-	<div class="container" ng-controller="TodoCtrl" id="playground">
+	<div class="container" id="playground">
 		<div class="row">
 			<div class="col-xs-3">
 				<div class="list-group">
-					<a href="#" ng-repeat="todos in model" class="list-group-item" ng-class="{'active' : currentShow === $index}" ng-click="changeTodo($index)" >
-					<span class="badge">{{todos.list.length}}</span>
-					{{todos.name}}
+					<a href="#" ng-repeat="scores in model" class="list-group-item" ng-class="{'active' : currentShow === $index}" ng-click="changeScore($index)" >
+					{{scores.name}}
+					<span class="badge">{{scores.list.length}}</span>
 					</a>
 				</div>
 			</div>
 			<div class="col-xs-6">
 				<div class="row">
-					<div class="col-xs-7">
+					<div class="col-xs-12">
 						<div class="input-group">
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
 							</span>
-							<input type="search" class="form-control" placeholder="Search" ng-model="todoSearch">
+							<input type="search" class="form-control" placeholder="Search" ng-model="scoreSearch">
 						</div>
 					</div>
-					<div class="col-xs-5">
-						<ul class="nav nav-pills todo-filter">
-						  <li ng-class="{'active' : show == 'All' }" ng-click="show='All'"><a href="#">All</a></li>
-						  <li ng-class="{'active' : show == 'Incomplete' }" ng-click="show='Incomplete'"><a href="#">Incomplete</a></li>
-						  <li ng-class="{'active' : show == 'Complete' }" ng-click="show='Complete'"><a href="#">Complete</a></li>
-						</ul>
-					</div>
 				</div>
-				<div class="row" id="todoAdd">
+				<div class="row" id="scoreAdd">
 					<div class="form-group">
-						<input class="todoField" id="newTodoField" type="text" ng-model="newTodo" placeholder="Add New Todo" ng-enter>
-						<button id="todoSubmit" class="btn btn-default" ng-click="addTodo()">Add</button>
+						
+						<input class="scoreField" id="newScoreField" type="text" ng-model="create.student" placeholder="Add New Student" ng-enter>
+						<input class="gradeField" id="newGradeField" type="number" ng-model="create.grade" placeholder="0-100" ng-enter>
+						<button id="scoreSubmit" class="btn btn-default" ng-click="addScore()">Add</button>
 					</div>
 				</div>
 				<div class="row">
-					<ul class="list-unstyled" ng-repeat="todos in model track by $index" ui-sortable="todoSortable" ng-model="todos.list" ng-show="$index === currentShow">
-						<li class="todoTask" ng-repeat="todo in todos.list | filter:showFn | filter :todoSearch ">
-							<input class="todoCheckbox" ng-model="todo.isDone" type="checkbox">
-							<label class="todoCheckboxlabel" ></label>
-							<edit-in-place value="todo.taskName"></edit-in-place>
-							<button type="button" class="close pull-right" aria-hidden="true" ng-click="deleteTodo($index)">&times;</button>
-						</li>
-					</ul>
+
+					<div class="list-unstyled" ng-repeat="scores in model track by $index" ng-model="scores.list" ng-show="$index === currentShow">
+						<summary>
+							<div class="progress row">
+								<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ minScore }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ minScore }}%;">
+									Min Grade: {{ minScore }}%
+								</div>
+							</div>
+
+							<div class="progress row">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ maxScore }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ maxScore }}%;">
+									Max Grade: {{ maxScore }}%
+								</div>
+							</div>
+
+							<div class="progress row">
+								<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ avgScore }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ avgScore }}%;">
+									Avg. Grade: {{ avgScore }}%
+								</div>
+							</div>
+
+						</summary>
+
+						<div class="media scoreTask" ng-repeat="score in scores.list | filter: scoreSearch ">
+							<div class='media-body' ng-class=' {"text-danger": score.grade < 65} '>
+								<h4 class='media-heading'>{{ score.student }} <span class='badge'>{{score.grade}}</span></h4>
+								<edit-in-place value="score"></edit-in-place>
+								<button type="button" class="close pull-right" aria-hidden="false" ng-click="deleteScore($index)">&times;</button>
+								<div class="clearfix"></div>
+							</div>
+
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
 
-		<div class="row">
+<!-- 		<div class="row">
 			<div class="debug">
 				<p class="text-info">{{ model | json}}</p>
 			</div>
 		</div>
+ -->
 	</div>
 
-	<script type="text/javascript" async>
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-33060097-3']);
-	  _gaq.push(['_setDomainName', 'jaykanakiya.com']);
-	  _gaq.push(['_trackPageview']);
-
-	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-	</script>
 </body>
 </html>

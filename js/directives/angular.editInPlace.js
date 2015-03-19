@@ -1,11 +1,14 @@
+
 App.directive( 'editInPlace', function() {
   return {
     restrict: 'E',
-    scope: { value: '=' },
-    template: '<span class="todoName" ng-dblclick="edit()" ng-bind="value"></span><input class="todoField" ng-model="value"></input>',
+    scope: { score: '=' },
+    template: '<span class="scoreName glyphicon glyphicon-pencil" ng-click="edit()"></span>\n' +
+      '<div class=\'col-xs-7\'><input class="form-control" ng-model="score.student" placeholder="Student Name"></div>\n' +
+      '<div class=\'col-xs-3\' ng-class=""><input type="number" class="form-control" ng-min="0" ng-max="100" ng-model="score.grade" placeholder="Grade 0-100"></div>\n',
     link: function ( $scope, element, attrs ) {
       // Let's get a reference to the input element, as we'll want to reference it.
-      var inputElement = angular.element( element.children()[1] );
+      var inputElement = angular.element( element.find('input')[0] );
 
       // This directive should have a set class so we can style it.
       element.addClass( 'edit-in-place' );
@@ -13,7 +16,7 @@ App.directive( 'editInPlace', function() {
       // Initially, we're not editing.
       $scope.editing = false;
 
-      // ng-dblclick handler to activate edit-in-place
+      // ng-click handler to activate edit-in-place
       $scope.edit = function () {
         $scope.editing = true;
 

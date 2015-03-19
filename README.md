@@ -1,16 +1,23 @@
-#TODO SORTABLE LIST
+Project by: [Dan Levy](http://www.danlevy.net/)
 
-The Github Repo of Multiple Sortable Todos using Angular-js.
+## TODO
+1.	Added build process
+1.	Extend TodoMVC schema 
+	1.	Add validation
+	1.	UI fail indicator (text-danger + glyphicon or something)
+1.	Stats 
 
-1. ##[Tutorial](http://blog.jaykanakiya.com/angular-js-todo-list-sortable/)
-1. ##[Demo](http://jaykanakiya.com/demos/angular-js-todolist/)
-1. ##[Download](https://github.com/kanakiyajay/Angular-js-todolist/archive/master.zip)
 
-#Contact
 
-1.[Twitter](http://twitter.com/techiejayk)
-1.[Website](http://jaykanakiya.com/)
-1.[Email](mailto:kanakiyajay@gmail.com)
+
+
+Original Fork Credits:
+
+> Todo-Sortable-List Example App
+> Licensed under the Apache License v2.0
+> http://www.apache.org/licenses/LICENSE-2.0
+> Built by Jay Kanakiya ( @techiejayk )
+
 
 #LICENSE
 
